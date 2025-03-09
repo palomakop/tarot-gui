@@ -6,19 +6,59 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950 font-serif;
+  @apply bg-stone-50 dark:bg-stone-950 font-serif text-stone-950 dark:text-stone-50 font-[450] dark:font-normal;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
 
-  
+  font-size: 115%;
+
+  --color-stone-50: oklch(0.970 0.015 80);
+  --color-stone-100: oklch(0.900 0.03 80);
+  --color-stone-200: oklch(0.800 0.045 80);
+  --color-stone-300: oklch(0.700 0.04 80);
+  --color-stone-400: oklch(0.650 0.045 80);
+  --color-stone-500: oklch(0.530 0.05 80);
+  --color-stone-600: oklch(0.350 0.05 80);
+  --color-stone-700: oklch(0.250 0.05 80);
+  --color-stone-800: oklch(0.100 0.04 80);
+  --color-stone-900: oklch(0.80 0.03 80);
+  --color-stone-950: oklch(0.20 0.01 80);
+
 }
 
 h1 {
-  @apply text-4xl;
+  @apply text-5xl;
 }
 
 h2 {
   @apply text-2xl;
+}
+
+button {
+  cursor: pointer;
+  @apply text-stone-500 dark:text-stone-200 font-bold py-2 px-4 rounded-full border-2;
+  transition-duration: 0.3s;
+}
+
+button:hover {
+  @apply text-stone-300 dark:text-stone-400;
+  transition-duration: 0.3s;
+}
+
+a {
+  text-decoration:underline;
+  @apply text-stone-500 dark:text-stone-200;
+  transition-duration: 0.3s;
+}
+
+a:hover {
+  @apply text-stone-300 dark:text-stone-400;
+  transition-duration: 0.3s;
+}
+
+.moon-icon {
+  filter:sepia() saturate(0.65);
+  @apply text-3xl;
 }
