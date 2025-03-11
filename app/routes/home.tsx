@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import { Splash } from "../splash/splash";
+import { Splash } from "../components/splash";
 
 export function meta({}: Route.MetaArgs) {
   return [

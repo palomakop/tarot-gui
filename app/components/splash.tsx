@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Footer } from "../footer";
+import { Footer } from "./footer";
 
 export function Splash() {
   return (
@@ -8,7 +8,7 @@ export function Splash() {
           <h1 className="text-5xl">Subtle Cards</h1>
         </header>
         <div className="flex flex-col items-center justify-center pb-16 gap-9">
-          <Link to="/pull/new">
+          <Link to="/pull/new" viewTransition>
             <button>
               Start a Pull
             </button>

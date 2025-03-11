@@ -1,6 +1,5 @@
 import type { Route } from "./+types/home";
-import { Link } from "react-router";
-import { Moon } from "../moon";
+import { Footer } from "../components/footer";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -21,8 +20,7 @@ export default function About() {
       <p>
         Subtle Cards was built by <a href="https://palomakop.tv">Paloma Kop</a> during a coding retreat at <a href="https://recurse.com">Recurse Center</a>. The front end was built with React and the back end was made with Flask and Supabase.
       </p>
-      <Link to="/">← Back to home</Link>
-      <Moon />
+      <Footer />
     </div>
   );
 }
