@@ -11,6 +11,7 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+  box-sizing:border-box;
 
   font-size: 115%;
 
@@ -19,17 +20,17 @@ body {
   --color-stone-200: oklch(0.800 0.045 80);
   --color-stone-300: oklch(0.700 0.04 80);
   --color-stone-400: oklch(0.650 0.045 80);
-  --color-stone-500: oklch(0.530 0.05 80);
-  --color-stone-600: oklch(0.350 0.05 80);
-  --color-stone-700: oklch(0.250 0.05 80);
-  --color-stone-800: oklch(0.100 0.04 80);
-  --color-stone-900: oklch(0.80 0.03 80);
+  --color-stone-500: oklch(0.530 0.04 80);
+  --color-stone-600: oklch(0.350 0.03 80);
+  --color-stone-700: oklch(0.300 0.02 80);
+  --color-stone-800: oklch(0.100 0.01 80);
+  --color-stone-900: oklch(0.25 0.015 80);
   --color-stone-950: oklch(0.20 0.01 80);
 
 }
 
 h1 {
-  @apply text-5xl;
+  @apply text-4xl text-center;
 }
 
 h2 {
@@ -86,4 +87,34 @@ a:hover {
     transform: translateY(0%);
     opacity:1;
   }
+}
+
+form {
+  @apply flex flex-col min-w-full px-8 py-6 border-stone-200 dark:border-none dark:bg-stone-900 border-2;
+  border-radius:1.5em;
+}
+
+form button {
+  width:fit-content;
+  margin: 0.5em auto;
+}
+
+form p {
+  font-weight:500;
+}
+
+form p:not(:first-child) {
+  @apply pt-4;
+}
+
+.radio {
+  @apply flex gap-[1ch];
+}
+
+.checkbox {
+  @apply flex gap-[1ch];
+}
+
+input[type=text] {
+  @apply w-full rounded-lg mt-2 mb-4 px-2 py-1 border-2 border-stone-200 dark:border-none placeholder-stone-200 dark:placeholder-stone-500 dark:bg-stone-700;
 }

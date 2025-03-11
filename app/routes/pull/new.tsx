@@ -1,4 +1,5 @@
 import type { Route } from "../+types/home";
+import { NewPullForm } from "../../components/newPullForm"
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,8 +10,6 @@ export function meta({}: Route.MetaArgs) {
 
 export default function NewPull() {
   return (
-    <p>
-      A form to create your pull
-    </p>
+    <NewPullForm />
   );
 }
