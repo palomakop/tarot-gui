@@ -39,23 +39,23 @@ h2 {
 
 button {
   cursor: pointer;
-  @apply text-stone-500 dark:text-stone-200 font-bold py-2 px-4 rounded-full border-2;
+  @apply text-stone-500 dark:text-stone-300 font-bold py-2 px-4 rounded-full border-2;
   transition-duration: 0.3s;
 }
 
 button:hover {
-  @apply text-stone-300 dark:text-stone-400;
+  @apply text-stone-300 dark:text-stone-100;
   transition-duration: 0.3s;
 }
 
 a {
   text-decoration:underline;
-  @apply text-stone-500 dark:text-stone-200;
+  @apply text-stone-500 dark:text-stone-300;
   transition-duration: 0.3s;
 }
 
 a:hover {
-  @apply text-stone-300 dark:text-stone-400;
+  @apply text-stone-300 dark:text-stone-100;
   transition-duration: 0.3s;
 }
 
@@ -90,31 +90,30 @@ a:hover {
 }
 
 form {
-  @apply flex flex-col min-w-full px-8 py-6 border-stone-200 dark:border-none dark:bg-stone-900 border-2;
-  border-radius:1.5em;
+  @apply flex flex-col min-w-full px-5 py-4 sm:px-8 sm:py-6 border-stone-200 dark:border-none dark:bg-stone-900 border-2 rounded-3xl sm:rounded-[1.5em];
 }
 
 form button {
-  width:fit-content;
-  margin: 0.5em auto;
+  @apply w-fit mt-4 mb-2 mx-auto;
 }
 
 form p {
   font-weight:500;
+  @apply pb-1;
 }
 
 form p:not(:first-child) {
   @apply pt-4;
 }
 
-.radio {
-  @apply flex gap-[1ch];
-}
-
-.checkbox {
-  @apply flex gap-[1ch];
+.radio, .checkbox {
+  @apply flex gap-[1ch] items-baseline;
 }
 
 input[type=text] {
-  @apply w-full rounded-lg mt-2 mb-4 px-2 py-1 border-2 border-stone-200 dark:border-none placeholder-stone-200 dark:placeholder-stone-500 dark:bg-stone-700;
+  @apply w-full rounded-lg mt-2 mb-4 px-2 py-1 border-2 border-stone-200 dark:border-none placeholder-stone-200 dark:placeholder-stone-500 dark:bg-stone-700 dark:focus:outline-2 dark:focus:outline-stone-500;
+}
+
+input[type=checkbox], input[type=radio], input[type=text] {
+  @apply sepia;
 }
