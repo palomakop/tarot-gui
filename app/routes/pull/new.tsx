@@ -1,5 +1,7 @@
 import type { Route } from "../+types/home";
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from "axios";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,11 +10,76 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function NewPull() {
-
-  function handleSubmit(data: FormData): void {
-    console.log("Form submitted");
+function formDataToObject(formData: FormData): Record<string, FormDataEntryValue> {
+  const data: Record<string, FormDataEntryValue> = {};
+  for (let [key, value] of formData.entries()) {
+    data[key] = value;
   }
+  return data;
+}
+
+function buildPullData(formData: FormData) {
+  let body = {
+    spreadType: "",
+    numberOfCards: 0,
+    deck: "Rider-Waite-Smith",
+    allowReversed: false,
+    intention: ""
+  };
+  let data = formDataToObject(formData);
+  body.spreadType = data.layout as string;
+  body.intention = data.Intention as string;
+  switch(data.layout) {
+    case "Single": {
+      body.numberOfCards = 1;
+      break;
+    }
+    case "Triple": {
+      body.numberOfCards = 3;
+      break;
+    }
+    case "Cross": {
+      body.numberOfCards = 6;
+      break;
+    }
+  }
+  if ('AllowReversed' in data) {
+    body.allowReversed = true;
+  }
+  return body;
+}
+
+
+
+export default function NewPull() {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (formData: FormData) => {
+    setLoading(true);
+    setTimeout(async () => {
+      let body = buildPullData(formData);
+      console.log(JSON.stringify(body));
+      let newPullId = 'dummyId';
+      const delay = new Promise((resolve) => setTimeout(resolve, 3000));
+      const apiCall = axios.post("https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/new", body);
+      try {
+        const [apiResponse] = await Promise.all([apiCall, delay]);
+        console.log(JSON.stringify(apiResponse));
+        newPullId = apiResponse.data.message.id;
+        console.log(newPullId);
+      } catch (err) {
+        console.log("Something went wrong with the API call");
+      } finally {
+        navigate(`/pull/${newPullId}`);
+      }
+  }, 3000);
+  }
+
+  if (loading) {
+    return <p>loading</p>;
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center p-2 sm:p-4 gap-6 w-[500px] max-w-full ml-auto mr-auto">
@@ -41,8 +108,10 @@ export default function NewPull() {
           <label htmlFor="Intention">Briefly set an intention:</label>
         </p>
         <input type="text" maxLength={50} name="Intention" placeholder="Optional" />
-        <button type="submit">Pull Cards</button>
+        <button type="submit" disabled={loading}>Pull Cards</button>
       </form>
+      {loading && <p>Loading...</p>}
     </div>
   );
+
 }
