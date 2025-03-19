@@ -1,6 +1,10 @@
 import type { Route } from "../+types/home";
 import { useParams, useLocation } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import { Link } from "react-router";
+import { MoonPhase } from "../../components/moon";
+import { Spread } from "../../components/spread";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,24 +15,62 @@ export function meta({}: Route.MetaArgs) {
 
 export default function PullById() {
   const [loading, setLoading] = useState(true);
-  const [pullData, setPullData] = useState({empty: "true"});
-  let id = useParams().id;
+  const [pullData, setPullData] = useState(null);
+  let id = useParams().id as String;
   const location = useLocation();
-  if (location.state && loading) {
-    setPullData(location.state.pullData);
-    setLoading(false);
-  }
+
+  useEffect(() => {
+    if (location.state?.pullData) {
+      setPullData(location.state.pullData);
+      setLoading(false);
+    } else {
+      axios
+        .get(`https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/${id}`)
+        .then((response) => {
+          setPullData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching pull data:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [id, location.state]);
 
   let pullString = JSON.stringify(pullData);
 
+  if (loading) return <p>Loading...</p>;
+
+  let timeCreated;
+  let intention = false;
+
+  if(pullData.message) {
+    timeCreated = new Date(pullData.message.timestamp);
+    intention = pullData.message.intention;
+  }
+  else {
+    return (
+      <>
+        <h1>Hmmm...</h1>
+        <p className="mb-10">We can't find this pull. Would you like to create a <Link to="/pull/new">new tarot pull</Link>?</p>
+      </>
+    )
+  }
+
   return (
     <>
+      <h1>
+        A Tarot Pull
+      </h1>
+      {intention && <p>Intention: {intention}</p>}
       <p>
-        Here is the pull of {id}
+        Created on {timeCreated.toLocaleString()}
       </p>
       <p>
-        {pullString}
+        Moon phase: <MoonPhase date={timeCreated} />
       </p>
+      <Spread spreadData={pullData.message} />
     </>
   );
 }
