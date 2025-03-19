@@ -89,6 +89,7 @@ a:hover {
   }
 }
 
+
 form {
   @apply flex flex-col min-w-full px-5 py-4 sm:px-8 sm:py-6 border-stone-200 dark:border-none dark:bg-stone-900 border-2 rounded-3xl sm:rounded-[1.5em];
 }
