@@ -1,5 +1,5 @@
 import type { Route } from "../+types/home";
-import { useNavigate } from 'react-router-dom';
+import { useViewTransitionNavigate } from "../../components/useViewTransitionNavigate";
 import { useState } from 'react';
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
@@ -55,7 +55,7 @@ function buildPullData(formData: FormData) {
 
 export default function NewPull() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useViewTransitionNavigate();
 
   const handleSubmit = async (formData: FormData) => {
     setLoading(true);
@@ -75,27 +75,13 @@ export default function NewPull() {
       } catch (err) {
         console.log("Something went wrong with the API call");
       } finally {
-        navigate(`/pull/${newPullId}`, {state:{pullData:newPullData}});
+        navigate(`/pull/${newPullId}`, {state: {pullData: newPullData}});
       }
   }, 3000);
   }
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <motion.div
-            key="loading"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 2, ease: "easeInOut" }}
-            className="p-6 bg-white rounded-2xl shadow-lg fixed w-full h-full"
-          >
-            <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500"></div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
       <div className="flex flex-col items-center justify-center p-2 sm:p-4 gap-6 w-[500px] max-w-full ml-auto mr-auto">
         <h1>
           New Tarot Pull
@@ -110,10 +96,6 @@ export default function NewPull() {
             <input type="radio" name="layout" value="Triple" />
             <label htmlFor="css">Triple</label>
           </div>
-          <div className="radio">
-            <input type="radio" name="layout" value="Cross" />
-            <label htmlFor="Cross">Cross</label>
-          </div>
           <p className="checkbox">
             <input type="checkbox" name="AllowReversed" value="AllowReversed" defaultChecked />
             <label htmlFor="AllowReversed">Allow reversed cards?</label>
@@ -125,6 +107,37 @@ export default function NewPull() {
           <button type="submit" disabled={loading}>Pull Cards</button>
         </form>
       </div>
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <motion.div
+            key="loading"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+            className="p-6 bg-stone-50 dark:bg-stone-950 fixed inset-0 flex items-center justify-center z-1000"
+          >
+            <motion.div
+              key="loading"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1, rotate: 360 }}
+              transition={{
+                scale: { duration: 2, ease: "easeInOut" },
+                rotate: { duration: 3, ease: "linear", repeat: Infinity }
+              }}
+              className="rounded-full h-80 w-80 border-t-10"
+            ></motion.div>
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              transition={{ delay: 1.5, duration: 2, ease: "easeInOut"}}
+              className="fixed flex items-center justify-center"
+            >
+              <p className="text-3xl">Pulling Cards...</p>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </>
   );
 

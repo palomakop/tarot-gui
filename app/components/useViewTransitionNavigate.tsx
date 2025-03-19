@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 export const useViewTransitionNavigate = () => {
   const navigate = useNavigate();
 
-  return (to: string) => {
+  return (to: string, state: Object) => {
     if (document.startViewTransition) {
-      document.startViewTransition(() => navigate(to));
+      document.startViewTransition(() => navigate(to, state));
     } else {
-      navigate(to);
+      navigate(to, state);
     }
   };
 };
