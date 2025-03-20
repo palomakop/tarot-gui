@@ -68,10 +68,8 @@ export default function NewPull() {
       const apiCall = axios.post("https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/new", body);
       try {
         const [apiResponse] = await Promise.all([apiCall, delay]);
-        console.log(JSON.stringify(apiResponse));
         newPullId = apiResponse.data.message.id;
-        newPullData = apiResponse.data;
-        console.log(newPullId);
+        newPullData = apiResponse.data.message;
       } catch (err) {
         console.log("Something went wrong with the API call");
       } finally {
@@ -89,21 +87,21 @@ export default function NewPull() {
         <form action={handleSubmit}>
           <p>Choose a card layout:</p>
           <div className="radio">
-            <input type="radio" name="layout" value="Single" defaultChecked />
+            <input type="radio" name="layout" id="Single" value="Single" defaultChecked />
             <label htmlFor="Single">Single</label>
           </div>
           <div className="radio">
-            <input type="radio" name="layout" value="Triple" />
-            <label htmlFor="css">Triple</label>
+            <input type="radio" name="layout" id="Triple" value="Triple" />
+            <label htmlFor="Triple">Triple</label>
           </div>
           <p className="checkbox">
-            <input type="checkbox" name="AllowReversed" value="AllowReversed" defaultChecked />
+            <input type="checkbox" name="AllowReversed" id="AllowReversed" value="AllowReversed" defaultChecked />
             <label htmlFor="AllowReversed">Allow reversed cards?</label>
           </p>
           <p>
             <label htmlFor="Intention">Briefly set an intention:</label>
           </p>
-          <input type="text" maxLength={50} name="Intention" placeholder="Optional" />
+          <input type="text" maxLength={50} name="Intention" id="Intention" placeholder="Optional" />
           <button type="submit" disabled={loading}>Pull Cards</button>
         </form>
       </div>
@@ -117,7 +115,7 @@ export default function NewPull() {
             className="p-6 bg-stone-50 dark:bg-stone-950 fixed inset-0 flex items-center justify-center z-1000"
           >
             <motion.div
-              key="loading"
+              key="spinner"
               initial={{ scale: 0 }}
               animate={{ scale: 1, rotate: 360 }}
               transition={{
@@ -127,7 +125,7 @@ export default function NewPull() {
               className="rounded-full h-80 w-80 border-t-10"
             ></motion.div>
             <motion.div
-              key="loading"
+              key="loadingText"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ delay: 1.5, duration: 2, ease: "easeInOut"}}

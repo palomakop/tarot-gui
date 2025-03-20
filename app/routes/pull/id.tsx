@@ -15,7 +15,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function PullById() {
   const [loading, setLoading] = useState(true);
-  const [pullData, setPullData] = useState(null);
+  const [pullData, setPullData] = useState<any>(false);
   let id = useParams().id as String;
   const location = useLocation();
 
@@ -27,7 +27,7 @@ export default function PullById() {
       axios
         .get(`https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/${id}`)
         .then((response) => {
-          setPullData(response.data);
+          setPullData(response.data.message);
         })
         .catch((error) => {
           console.error("Error fetching pull data:", error);
@@ -38,16 +38,14 @@ export default function PullById() {
     }
   }, [id, location.state]);
 
-  let pullString = JSON.stringify(pullData);
-
   if (loading) return <p>Loading...</p>;
 
   let timeCreated;
-  let intention = false;
+  let intention;
 
-  if(pullData.message) {
-    timeCreated = new Date(pullData.message.timestamp);
-    intention = pullData.message.intention;
+  if(pullData) {
+    timeCreated = new Date(pullData.timestamp);
+    intention = pullData.pullDetails.intention;
   }
   else {
     return (
@@ -59,18 +57,16 @@ export default function PullById() {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-4 items-center my-4">
       <h1>
         A Tarot Pull
       </h1>
-      {intention && <p>Intention: {intention}</p>}
-      <p>
-        Created on {timeCreated.toLocaleString()}
+      {intention && <h2 className="text-center"><span className="text-stone-400 italic text-xl">Intention:</span><br />{intention}</h2>}
+      <p className="text-stone-400 text-center">
+        Pulled at {timeCreated.toLocaleTimeString()} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
+        (<MoonPhase date={timeCreated} /> moon)
       </p>
-      <p>
-        Moon phase: <MoonPhase date={timeCreated} />
-      </p>
-      <Spread spreadData={pullData.message} />
-    </>
+      <Spread spreadData={pullData} />
+    </div>
   );
 }

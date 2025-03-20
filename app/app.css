@@ -115,9 +115,9 @@ form p:not(:first-child) {
 }
 
 input[type=text] {
-  @apply w-full rounded-lg mt-2 mb-4 px-2 py-1 border-2 border-stone-200 dark:border-none placeholder-stone-200 dark:placeholder-stone-500 dark:bg-stone-700 dark:focus:outline-2 dark:focus:outline-stone-500;
+  @apply w-full rounded-lg mt-2 mb-4 px-2 py-1 bg-stone-100 border-none placeholder-stone-400 dark:placeholder-stone-500 dark:bg-stone-700 focus:outline-2 focus:outline-stone-200 dark:focus:outline-2 dark:focus:outline-stone-500;
 }
 
-input[type=checkbox], input[type=radio], input[type=text] {
+input[type=checkbox], input[type=radio] {
   @apply sepia;
 }
