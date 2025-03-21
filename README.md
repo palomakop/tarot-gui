@@ -1,53 +1,15 @@
-# Welcome to React Router!
+# tarot-gui
 
-A modern, production-ready template for building full-stack React applications using React Router.
+The frontend for [Subtle Cards](https://subtle.cards), a tarot web app. Built with React Router as a framework, and hosted on Netlify. Typescript, tailwind, and Vite. Based on [this Netlify template for React Router](https://github.com/remix-run/react-router-templates/tree/main/netlify).
 
-## Features
+### [🎴 Live Demo](https://subtle.cards) | [⚙️ Backend repo](https://github.com/palomakop/tarot-flask)
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Setup
 
-## Getting Started
+1. Clone the repo
 
-### Installation
+2. Use `npm i` to install dependencies (with [npm/Node.js installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) on your system)
 
-Install the dependencies:
+3. Start development server with `npm run dev`
 
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:3000`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/remix-run/react-router-templates&create_from_path=netlify)
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+4. Build for production with `npm run build`
