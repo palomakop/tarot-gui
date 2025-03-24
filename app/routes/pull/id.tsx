@@ -63,7 +63,7 @@ export default function PullById() {
       </h1>
       {intention && <h2 className="text-center"><span className="text-stone-400 italic text-xl">Intention:</span><br />{intention}</h2>}
       <p className="text-stone-400 text-center">
-        Pulled at {timeCreated.toLocaleTimeString()} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
+        Pulled at {timeCreated.toLocaleTimeString("en-US", {hour: 'numeric', minute:'numeric'})} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
         (<MoonPhase date={timeCreated} /> moon)
       </p>
       <Spread spreadData={pullData} />

@@ -4,6 +4,7 @@ export interface PullDetails {
   intention: String,
   numberOfCards: Number,
   spreadType: String,
+  cardLabels?: Array<String>,
 }
 
 export interface CardData {
@@ -15,7 +16,8 @@ export interface CardData {
   suit: String,
   suitIndex: String,
   title: String,
-  uprightMeaning: String
+  uprightMeaning: String,
+  label?: String,
 }
 
 export interface SpreadData {
