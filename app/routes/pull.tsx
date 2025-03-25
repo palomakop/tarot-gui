@@ -1,6 +1,5 @@
 import type { Route } from "./+types/home";
-import { Link, Outlet } from "react-router";
-import { Footer } from "../components/footer"
+import { Outlet } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,10 +9,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Pull() {
-  return (
-    <div id="pull" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
-      <Outlet />
-      <Footer />
-    </div>
-  );
+  return <Outlet />;
 }

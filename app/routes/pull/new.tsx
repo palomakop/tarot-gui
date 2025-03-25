@@ -1,6 +1,8 @@
 import type { Route } from "../+types/home";
 import { useViewTransitionNavigate } from "../../components/useViewTransitionNavigate";
+import { Footer } from "../../components/footer";
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -57,8 +59,10 @@ export default function NewPull() {
   const [loading, setLoading] = useState(false);
   const navigate = useViewTransitionNavigate();
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setLoading(true);
+    const formData = new FormData(event.currentTarget);
     setTimeout(async () => {
       let body = buildPullData(formData);
       console.log(JSON.stringify(body));
@@ -79,12 +83,12 @@ export default function NewPull() {
   }
 
   return (
-    <>
+    <div id="pull-form" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
       <div className="flex flex-col items-center justify-center p-2 sm:p-4 gap-6 w-[500px] max-w-full ml-auto mr-auto">
         <h1>
           New Tarot Pull
         </h1>
-        <form action={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <p>Choose a card layout:</p>
           <div className="radio">
             <input type="radio" name="layout" id="Single" value="Single" defaultChecked />
@@ -105,6 +109,7 @@ export default function NewPull() {
           <button type="submit" disabled={loading}>Pull Cards</button>
         </form>
       </div>
+      <Footer />
       <AnimatePresence mode="wait">
         {loading ? (
           <motion.div
@@ -122,21 +127,21 @@ export default function NewPull() {
                 scale: { duration: 2, ease: "easeInOut" },
                 rotate: { duration: 3, ease: "linear", repeat: Infinity }
               }}
-              className="rounded-full h-80 w-80 border-t-10"
+              className="rounded-full w-[30ch] fixed max-w-[200vw] aspect-square border-t-10 border-stone-200 dark:border-stone-50"
             ></motion.div>
             <motion.div
               key="loadingText"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 1.5, duration: 2, ease: "easeInOut"}}
               className="fixed flex items-center justify-center"
             >
-              <p className="text-3xl">Pulling Cards...</p>
+              <p className="text-3xl text-stone-500 dark:text-stone-400 text-center">Pulling Cards...</p>
             </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </>
+    </div>
   );
 
 }

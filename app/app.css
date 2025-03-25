@@ -72,7 +72,7 @@ footer .moon-icon {
   @apply text-3xl;
 }
 
-#pull {
+#pull-form {
   view-transition-name: slide;
 }
 
@@ -83,6 +83,7 @@ footer .moon-icon {
 
 /* Exit transition */
 ::view-transition-old(slide) {
+  animation-duration: 5s;
 }
 
 @keyframes slide-in {
@@ -124,5 +125,5 @@ input[type=text] {
 }
 
 input[type=checkbox], input[type=radio] {
-  @apply sepia;
+  @apply accent-stone-500;
 }

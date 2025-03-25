@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link } from "react-router";
 import { MoonPhase } from "../../components/moon";
 import { Spread } from "../../components/spread";
+import { Footer } from "../../components/footer";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -41,7 +42,7 @@ export default function PullById() {
   if (loading) return <p>Loading...</p>;
 
   let timeCreated;
-  let intention;
+  let intention = false;
 
   if(pullData) {
     timeCreated = new Date(pullData.timestamp);
@@ -49,24 +50,28 @@ export default function PullById() {
   }
   else {
     return (
-      <>
+      <div id="pull" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
         <h1>Hmmm...</h1>
-        <p className="mb-10">We can't find this pull. Would you like to create a <Link to="/pull/new">new tarot pull</Link>?</p>
-      </>
+        <p className="mb-10 text-center">We can't find this pull. Would you like to create a <Link to="/pull/new">new tarot pull</Link>?</p>
+        <Footer />
+      </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-4 items-center my-4">
-      <h1>
-        A Tarot Pull
-      </h1>
-      {intention && <h2 className="text-center"><span className="text-stone-400 italic text-xl">Intention:</span><br />{intention}</h2>}
-      <p className="text-stone-400 text-center">
-        Pulled at {timeCreated.toLocaleTimeString("en-US", {hour: 'numeric', minute:'numeric'})} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
-        (<MoonPhase date={timeCreated} /> moon)
-      </p>
-      <Spread spreadData={pullData} />
+    <div id="pull" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
+      <div className="flex flex-col gap-4 items-center my-4">
+        <h1>
+          A Tarot Pull
+        </h1>
+        {intention && <h2 className="text-center"><span className="text-stone-400 italic text-xl">Intention:</span><br />{intention}</h2>}
+        <p className="text-stone-400 text-center">
+          Pulled at {timeCreated.toLocaleTimeString("en-US", {hour: 'numeric', minute:'numeric'})} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
+          (<MoonPhase date={timeCreated} /> moon)
+        </p>
+        <Spread spreadData={pullData} />
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -15,7 +15,7 @@ export function Card({cardData}: {cardData : CardData}) {
 
   return (
     <div className="card-place flex flex-col items-center gap-0 xs:gap-4 shrink w-full min-w-[0]">
-      <div className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] sepia-50" title={titleString as string}>
+      <div className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] sepia-30 dark:sepia-50" title={titleString as string}>
         <div className="card-back box-border p-1 absolute overflow-hidden w-full h-full bg-white rounded-md shadow-xl">
           <div className="card-back-img bg-contain bg-no-repeat bg-center w-full h-full" style={{ backgroundImage: `url(${backImg})` }}></div>
           </div>
