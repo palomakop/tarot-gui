@@ -79,7 +79,7 @@ export function CardInfo({cardData}: {cardData : CardData}) {
     <div className="card-info">
       <h3 className="flex gap-3 text-2xl"><span className="text-stone-400">{cardData.label}</span><span className="italic">{titleString}</span></h3>
       <ul className="pl-5 text-sm">
-        <li><b>Suit:</b> {cardData.suit} <span className="text-stone-300 dark:text-stone-500">({suitMeanings[cardData.suit]})</span></li>
+        <li><b>Suit:</b> {cardData.suit} <span className="text-stone-300 dark:text-stone-500">({suitMeanings[cardData.suit as keyof typeof suitMeanings]})</span></li>
         <li><b>Element:</b> <span className={elementColor}>{cardData.element}</span></li>
         <li><b>{primaryMeaningLabel}:</b> {primaryMeaning}</li>
         <li className="text-stone-300 dark:text-stone-500"><b>{secondaryMeaningLabel}:</b> {secondaryMeaning}</li>
