@@ -1,5 +1,5 @@
 import type { Route } from "../+types/home";
-import { useViewTransitionNavigate } from "../../components/useViewTransitionNavigate";
+import { useNavigate } from "react-router-dom";
 import { Footer } from "../../components/footer";
 import { useState } from 'react';
 import type { FormEvent } from 'react';
@@ -57,19 +57,23 @@ function buildPullData(formData: FormData) {
 
 export default function NewPull() {
   const [loading, setLoading] = useState(false);
-  const navigate = useViewTransitionNavigate();
+  const [isExiting, setIsExiting] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
     const formData = new FormData(event.currentTarget);
+
     setTimeout(async () => {
       let body = buildPullData(formData);
       console.log(JSON.stringify(body));
       let newPullId = 'dummyId';
       let newPullData = {};
+
       const delay = new Promise((resolve) => setTimeout(resolve, 3000));
       const apiCall = axios.post("https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/new", body);
+
       try {
         const [apiResponse] = await Promise.all([apiCall, delay]);
         newPullId = apiResponse.data.message.id;
@@ -77,13 +81,22 @@ export default function NewPull() {
       } catch (err) {
         console.log("Something went wrong with the API call");
       } finally {
-        navigate(`/pull/${newPullId}`, {state: {pullData: newPullData}});
+        setIsExiting(true);
+        setTimeout(() => {
+          navigate(`/pull/${newPullId}`, {state: {pullData: newPullData}});
+        }, 1000);
       }
-  }, 3000);
+    }, 3000);
   }
 
   return (
-    <div id="pull-form" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
+    <motion.div 
+      id="pull-form"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isExiting ? 0 : 1 }}
+      transition={{ duration: 0.3 }}
+      className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]"
+    >
       <div className="flex flex-col items-center justify-center p-2 sm:p-4 gap-6 w-[500px] max-w-full ml-auto mr-auto">
         <h1>
           New Tarot Pull
@@ -141,7 +154,7 @@ export default function NewPull() {
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 
 }

@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { MoonPhase } from "../../components/moon";
 import { Spread } from "../../components/spread";
 import { Footer } from "../../components/footer";
+import CopyRouteButton from "../../components/copyRouteButton";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -39,7 +40,18 @@ export default function PullById() {
     }
   }, [id, location.state]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return (
+    <div id="pull" className="p-4 flex flex-col justify-center items-center gap-9 mh-[100vh]">
+      <div className="flex flex-col gap-4 items-center my-4">
+        <h1>
+          A Tarot Pull
+        </h1>
+        <p className="text-stone-400 text-center">
+          ...
+        </p>
+      </div>
+    </div>
+  );
 
   let timeCreated;
   let intention = false;
@@ -69,6 +81,7 @@ export default function PullById() {
           Pulled at {timeCreated.toLocaleTimeString("en-US", {hour: 'numeric', minute:'numeric'})} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
           (<MoonPhase date={timeCreated} /> moon)
         </p>
+        <CopyRouteButton />
         <Spread spreadData={pullData} />
       </div>
       <Footer />

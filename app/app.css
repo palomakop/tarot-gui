@@ -22,7 +22,7 @@ body {
   --color-stone-300: oklch(0.700 0.04 80);
   --color-stone-400: oklch(0.650 0.045 80);
   --color-stone-500: oklch(0.530 0.04 80);
-  --color-stone-600: oklch(0.350 0.03 80);
+  --color-stone-600: oklch(0.400 0.03 80);
   --color-stone-700: oklch(0.300 0.02 80);
   --color-stone-800: oklch(0.100 0.01 80);
   --color-stone-900: oklch(0.25 0.015 80);
@@ -45,12 +45,20 @@ b {
 button {
   cursor: pointer;
   @apply text-stone-500 dark:text-stone-300 font-bold py-2 px-4 rounded-full border-2;
-  transition-duration: 0.3s;
+  transition: all 0.3s ease;
 }
 
 button:hover {
   @apply text-stone-300 dark:text-stone-100;
-  transition-duration: 0.3s;
+  transition: all 0.3s ease;
+}
+
+.subtle-button {
+  @apply text-stone-200 dark:text-stone-600;
+}
+
+.subtle-button:hover {
+  @apply text-stone-400 dark:text-stone-500;
 }
 
 a {
@@ -83,7 +91,7 @@ footer .moon-icon {
 
 /* Exit transition */
 ::view-transition-old(slide) {
-  animation-duration: 5s;
+  animation-duration: 0.5s;
 }
 
 @keyframes slide-in {
