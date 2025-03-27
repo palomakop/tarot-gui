@@ -1,12 +1,13 @@
+import { motion } from 'framer-motion';
 import { type SpreadData, type CardData } from '../interfaces/interfaces';
 
-export function Card({cardData}: {cardData : CardData}) {
+export function Card({cardData, index, totalCards}: {cardData : CardData, index: number, totalCards: number}) {
   let frontImg = `https://subtle-cards.s3.us-east-1.amazonaws.com/Rider-Waite-Smith/${cardData.filename}.png`
   let backImg = "https://subtle-cards.s3.us-east-1.amazonaws.com/card_bg.png"
   let titleString = cardData.title;
   let cardFrontStyle = {
     backgroundImage: `url(${frontImg})`,
-    transform: 'rotate(0deg)'
+    transform: 'rotate(0deg)',
   }
   if (cardData.reversed) {
     titleString += " (Reversed)";
@@ -15,14 +16,93 @@ export function Card({cardData}: {cardData : CardData}) {
 
   return (
     <div className="card-place flex flex-col items-center gap-0 xs:gap-4 shrink w-full min-w-[0]">
-      <div className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] sepia-30 dark:sepia-50" title={titleString as string}>
-        <div className="card-back box-border p-1 absolute overflow-hidden w-full h-full bg-white rounded-md shadow-xl">
-          <div className="card-back-img bg-contain bg-no-repeat bg-center w-full h-full" style={{ backgroundImage: `url(${backImg})` }}></div>
+      <motion.div 
+        className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] sepia-30 dark:sepia-50 perspective-midrange"
+        title={titleString as string}
+        initial={{ 
+          opacity: 0, 
+          y: 500,
+        }}
+        animate={{ 
+          opacity: 1, 
+          y: 0,
+        }}
+        transition={{
+          y: {
+            duration: 1.5,
+            delay: 0.5 + (index),
+            type: "tween",
+            stiffness: 100
+          },
+          opacity: {
+            duration: 1,
+            delay: 0.5 + (index)
+          }
+        }}
+        style={{
+          transformStyle: "preserve-3d", // Ensures 3D transformations
+        }}
+      >
+        <motion.div
+          className="flipper w-full h-full relative"
+          style={{
+            transformStyle: "preserve-3d",
+            transformOrigin: "center center"
+          }}
+          initial={{ 
+            rotateY: 0 
+          }}
+          animate={{ 
+            rotateY: 180 
+          }}
+          transition={{
+            rotateY: {
+              duration: 1.5,
+              delay: 1 + (totalCards) + (index),
+              type: "tween",
+              stiffness: 100
+            }
+          }}
+        >
+          {/* Card Front */}
+          <div 
+            className="card-front absolute w-full h-full bg-white rounded-md"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+              transformStyle: 'preserve-3d',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+            }}
+          >
+            <div 
+              className="card-front-img bg-contain bg-no-repeat bg-center w-full h-full" 
+              style={cardFrontStyle} 
+              role="img" 
+              aria-label={cardData.description as string}
+            ></div>
           </div>
-        <div className="card-front box-border p-1 absolute overflow-hidden w-full h-full shrink bg-white rounded-md" >
-          <div className="card-front-img bg-contain bg-no-repeat bg-center w-full h-full" style={cardFrontStyle} role="img" aria-label={cardData.description as string}></div>
-        </div>
-      </div>
+          
+          {/* Card Back */}
+          <div 
+            className="card-back absolute w-full h-full bg-white rounded-md shadow-xl"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)',
+              transformStyle: 'preserve-3d',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+            }}
+          >
+            <div 
+              className="card-back-img bg-contain bg-no-repeat bg-center w-full h-full" 
+              style={{ backgroundImage: `url(${backImg})` }}
+            ></div>
+          </div>
+        </motion.div>
+      </motion.div>
       <div className="card-label text-stone-400">{cardData.label}</div>
     </div>
   )
@@ -76,7 +156,17 @@ export function CardInfo({cardData}: {cardData : CardData}) {
   };
 
   return (
-    <div className="card-info">
+    <motion.div 
+      className="card-info"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.6,
+        delay: 0.4,
+        type: "spring",
+        stiffness: 100
+      }}
+    >
       <h3 className="flex gap-3 text-2xl"><span className="text-stone-400">{cardData.label}</span><span className="italic">{titleString}</span></h3>
       <ul className="pl-5 text-sm">
         <li><b>Suit:</b> {cardData.suit} <span className="text-stone-300 dark:text-stone-500">({suitMeanings[cardData.suit as keyof typeof suitMeanings]})</span></li>
@@ -84,13 +174,13 @@ export function CardInfo({cardData}: {cardData : CardData}) {
         <li><b>{primaryMeaningLabel}:</b> {primaryMeaning}</li>
         <li className="text-stone-300 dark:text-stone-500"><b>{secondaryMeaningLabel}:</b> {secondaryMeaning}</li>
       </ul>
-    </div>
+    </motion.div>
   )
 }
 
 export function Spread({spreadData}: {spreadData: SpreadData}) {
-
   let cards = spreadData.cards;
+  let totalCards = cards.length;
 
   for (var i = 0; i < cards.length; i++) {
     if (spreadData.pullDetails.cardLabels != undefined) {
@@ -103,22 +193,33 @@ export function Spread({spreadData}: {spreadData: SpreadData}) {
 
   return (
     <>
-      <div id="spread" className="flex flex-col md:flex-row rounded-lg bg-stone-100 dark:bg-stone-700 p-5 xs:p-10 pb-2 xs:pb-6 my-6 gap-5 xs:gap-10 max-w-[90vw]">
+      <motion.div 
+        id="spread" 
+        className="flex flex-col md:flex-row rounded-lg bg-stone-100 dark:bg-stone-700 p-5 xs:p-10 pb-2 xs:pb-6 my-6 gap-5 xs:gap-10 max-w-[90vw]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         {cards.map(function(card, index: number) {
           return (
-            <Card cardData={card} key={index} />
+            <Card cardData={card} key={index} index={index} totalCards={totalCards} />
           );
         })}
-      </div>
-      <div id="card-info" className="flex flex-col gap-5 w-content max-w-100 mx-auto">
+      </motion.div>
+      <motion.div 
+        id="card-info" 
+        className="flex flex-col gap-5 w-content max-w-100 mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.8 }}
+      >
         <p className="text-center text-stone-400 text-4xl">About these cards...</p>
         {cards.map(function(card, index: number) {
           return (
             <CardInfo cardData={card} key={index} />
           );
         })}
-      </div>
+      </motion.div>
     </>
   );
-
 }

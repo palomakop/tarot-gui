@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Check } from 'lucide-react';
 
 const CopyRouteButton: React.FC = () => {
   const location = useLocation();
@@ -26,7 +25,7 @@ const CopyRouteButton: React.FC = () => {
   return (
     <button 
       onClick={handleCopyRoute}
-      className="relative md:absolute md:top-5 md:right-5 flex items-center justify-center rounded-md transition-colors duration-200 flex gap-2 w-[14ch] py-2 min-h-[1.7em] subtle-button"
+      className="relative md:absolute md:top-5 md:right-5 flex items-center justify-center rounded-md transition-colors duration-200 flex gap-2 w-[10ch] py-2 min-h-[1.7em] subtle-button"
       aria-label="Copy current route"
     >
       <AnimatePresence mode="wait">
@@ -39,7 +38,6 @@ const CopyRouteButton: React.FC = () => {
             exit={{ opacity: 0 }}
             className="flex items-center gap-2 text-stone-300 dark:text-stone-300 absolute"
           >
-            <Check size={20} />
             Copied!
           </motion.span>
         ) : (
@@ -50,7 +48,6 @@ const CopyRouteButton: React.FC = () => {
             exit={{ opacity: 0 }}
             className="flex items-center gap-2 absolute"
           >
-            <Copy size={20} />
             Copy link
           </motion.span>
         )}
