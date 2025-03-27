@@ -17,7 +17,7 @@ export function Card({cardData, index, totalCards}: {cardData : CardData, index:
   return (
     <div className="card-place flex flex-col items-center gap-0 xs:gap-4 shrink w-full min-w-[0]">
       <motion.div 
-        className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] sepia-30 dark:sepia-50 perspective-midrange"
+        className="card-container relative w-50 max-w-full flex flex-col items-center justify-center shrink aspect-[290/475] perspective-midrange"
         title={titleString as string}
         initial={{ 
           opacity: 0, 
@@ -66,7 +66,7 @@ export function Card({cardData, index, totalCards}: {cardData : CardData, index:
         >
           {/* Card Front */}
           <div 
-            className="card-front absolute w-full h-full bg-white rounded-md"
+            className="card-front absolute w-full h-full bg-stone-50 rounded-md overflow-hidden"
             style={{ 
               backfaceVisibility: 'hidden',
               transform: 'rotateY(180deg)',
@@ -86,7 +86,7 @@ export function Card({cardData, index, totalCards}: {cardData : CardData, index:
           
           {/* Card Back */}
           <div 
-            className="card-back absolute w-full h-full bg-white rounded-md shadow-xl"
+            className="card-back absolute w-full h-full bg-stone-50 rounded-md shadow-xl overflow-hidden"
             style={{ 
               backfaceVisibility: 'hidden',
               transform: 'rotateY(0deg)',
