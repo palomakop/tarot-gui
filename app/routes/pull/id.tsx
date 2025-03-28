@@ -168,11 +168,11 @@ export default function PullById() {
   }
 
   let timeCreated = new Date();
-  let intention = false;
+  let intention: string | boolean = false;
 
   if (pullData) {
     timeCreated = new Date(pullData.timestamp);
-    intention = pullData.pullDetails.intention;
+    intention = pullData.pullDetails.intention || false;
   }
 
   return (
