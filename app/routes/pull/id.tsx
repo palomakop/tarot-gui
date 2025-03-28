@@ -167,7 +167,7 @@ export default function PullById() {
     );
   }
 
-  let timeCreated;
+  let timeCreated = new Date();
   let intention = false;
 
   if (pullData) {
