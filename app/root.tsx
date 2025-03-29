@@ -29,6 +29,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="icon" href="/favicon-light.png" type="image/png" media="(prefers-color-scheme: light)"/>
         <link rel="icon" href="/favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)"/>
         <Meta />
