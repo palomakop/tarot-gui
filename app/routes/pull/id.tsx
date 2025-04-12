@@ -228,7 +228,7 @@ export default function PullById() {
                 className="text-stone-400 text-center"
               >
                 Pulled at {timeCreated.toLocaleTimeString("en-US", {hour: 'numeric', minute:'numeric'})} on {timeCreated.toLocaleDateString("en-US", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}<br />
-                (<MoonPhase date={timeCreated} /> moon)
+                (<MoonPhase date={timeCreated} /> Moon)
               </motion.p>
 
               {/* Copy Route Button Animation */}

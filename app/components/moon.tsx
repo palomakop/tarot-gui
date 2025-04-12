@@ -4,19 +4,19 @@ function getMoonPhaseDetails(phase: number): { string: string; icon: string } {
   if (phase >= 0 && phase <= 0.0625) {
     return { string: "New", icon: "🌑" };
   } else if (phase > 0.0625 && phase <= 0.1875) {
-    return { string: "Waxing crescent", icon: "🌒" };
+    return { string: "Waxing Crescent", icon: "🌒" };
   } else if (phase > 0.1875 && phase <= 0.3125) {
-    return { string: "First quarter", icon: "🌓" };
+    return { string: "First Quarter", icon: "🌓" };
   } else if (phase > 0.3125 && phase <= 0.4375) {
-    return { string: "Waxing gibbous", icon: "🌔" };
+    return { string: "Waxing Gibbous", icon: "🌔" };
   } else if (phase > 0.4375 && phase <= 0.5625) {
     return { string: "Full", icon: "🌕" };
   } else if (phase > 0.5625 && phase <= 0.6875) {
-    return { string: "Waning gibbous", icon: "🌖" };
+    return { string: "Waning Gibbous", icon: "🌖" };
   } else if (phase > 0.6875 && phase <= 0.8125) {
-    return { string: "Last quarter", icon: "🌗" };
+    return { string: "Last Quarter", icon: "🌗" };
   } else if (phase > 0.8125 && phase <= 0.9375) {
-    return { string: "Waning crescent", icon: "🌘" };
+    return { string: "Waning Crescent", icon: "🌘" };
   } else if (phase > 0.9375 && phase <= 1.0) {
     return { string: "New", icon: "🌑" };
   }
