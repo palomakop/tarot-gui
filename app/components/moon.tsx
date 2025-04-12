@@ -2,23 +2,23 @@ import SunCalc from 'suncalc';
 
 function getMoonPhaseDetails(phase: number): { string: string; icon: string } {
   if (phase >= 0 && phase <= 0.0625) {
-    return { string: "New Moon", icon: "🌑" };
+    return { string: "New", icon: "🌑" };
   } else if (phase > 0.0625 && phase <= 0.1875) {
-    return { string: "Waxing Crescent", icon: "🌒" };
+    return { string: "Waxing crescent", icon: "🌒" };
   } else if (phase > 0.1875 && phase <= 0.3125) {
-    return { string: "First Quarter", icon: "🌓" };
+    return { string: "First quarter", icon: "🌓" };
   } else if (phase > 0.3125 && phase <= 0.4375) {
-    return { string: "Waxing Gibbous", icon: "🌔" };
+    return { string: "Waxing gibbous", icon: "🌔" };
   } else if (phase > 0.4375 && phase <= 0.5625) {
-    return { string: "Full Moon", icon: "🌕" };
+    return { string: "Full", icon: "🌕" };
   } else if (phase > 0.5625 && phase <= 0.6875) {
-    return { string: "Waning Gibbous", icon: "🌖" };
+    return { string: "Waning gibbous", icon: "🌖" };
   } else if (phase > 0.6875 && phase <= 0.8125) {
-    return { string: "Last Quarter", icon: "🌗" };
+    return { string: "Last quarter", icon: "🌗" };
   } else if (phase > 0.8125 && phase <= 0.9375) {
-    return { string: "Waning Crescent", icon: "🌘" };
+    return { string: "Waning crescent", icon: "🌘" };
   } else if (phase > 0.9375 && phase <= 1.0) {
-    return { string: "New Moon", icon: "🌑" };
+    return { string: "New", icon: "🌑" };
   }
   return { string: "Unknown Phase", icon: "" };
 }
