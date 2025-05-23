@@ -72,7 +72,7 @@ export default function NewPull() {
       let newPullData = {};
 
       const delay = new Promise((resolve) => setTimeout(resolve, 3000));
-      const apiCall = axios.post("https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/new", body);
+      const apiCall = axios.post("https://subtle-cards.val.run/pull/new", body);
 
       try {
         const [apiResponse] = await Promise.all([apiCall, delay]);

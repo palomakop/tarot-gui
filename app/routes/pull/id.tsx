@@ -137,7 +137,7 @@ export default function PullById() {
         });
     } else {
       axios
-        .get(`https://subtle-cards-api-125ec9e25dbd.herokuapp.com/pull/${id}`)
+        .get(`https://subtle-cards.val.run/pull/${id}`)
         .then((response) => {
           const fetchedPullData = response.data.message;
           setPullData(fetchedPullData);
